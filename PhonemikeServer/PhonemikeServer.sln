@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhonemikeServer.Host", "PhonemikeServer.Host\PhonemikeServer.Host.csproj", "{C9F9CB75-A65C-4D94-B3A3-DD4213634FCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhonemikeServer.Host", "PhonemikeServer.Host\PhonemikeServer.Host.csproj", "{C9F9CB75-A65C-4D94-B3A3-DD4213634FCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhonemikeServer.WebApi", "PhonemikeServer.WebApi\PhonemikeServer.WebApi.csproj", "{CF82CCFF-6A27-4255-8A57-517C3789EF42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhonemikeServer.WebApi", "PhonemikeServer.WebApi\PhonemikeServer.WebApi.csproj", "{CF82CCFF-6A27-4255-8A57-517C3789EF42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhonemikeServer.Core", "PhonemikeServer.Core\PhonemikeServer.Core.csproj", "{FA2160F9-2CD3-4E3C-837A-F12720802EA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CF82CCFF-6A27-4255-8A57-517C3789EF42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF82CCFF-6A27-4255-8A57-517C3789EF42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF82CCFF-6A27-4255-8A57-517C3789EF42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA2160F9-2CD3-4E3C-837A-F12720802EA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA2160F9-2CD3-4E3C-837A-F12720802EA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA2160F9-2CD3-4E3C-837A-F12720802EA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA2160F9-2CD3-4E3C-837A-F12720802EA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
