@@ -34,6 +34,9 @@ namespace PhonemikeServer.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            //cors 允许全部
+            app.UseCors(builder => builder.WithOrigins("*").AllowAnyHeader());
 
             app.UseMvc(routes =>
             {
@@ -43,7 +46,6 @@ namespace PhonemikeServer.WebApi
                     defaults: new { controller = "Home", action = "Index" }
                 );
             });
-            
         }
     }
 }

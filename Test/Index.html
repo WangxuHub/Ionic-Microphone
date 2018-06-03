@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+</head>
+<body>
+
+    <button id="btnTest">Test</button>
+    <pre id="preRes"></pre>
+    <script>
+        var host = "https://localhost:44314";
+        $("#btnTest").click(function(){
+            $.get(host+'/api/home/index',function(json){
+                var jsonStr = JSON.stringify(json, ' ', 2);
+                $("#preRes").text(jsonStr);
+            },'json');
+            return false;
+        });;
+    </script>
+</body>
