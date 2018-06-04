@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <head>
     <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script src="./node_modules/@aspnet/signalr/dist/browser/signalr.js"></script>
 </head>
 <body>
 
     <button id="btnTest">Test</button>
     <pre id="preRes"></pre>
+
+
+    <hr>
+    <input id="userInput">
+    <input id="messageInput">
+    <button id="sendButton">sendButton</button>
+    <ul id="messagesList"></ul>
     <script>
         var host = "https://localhost:44314";
         $("#btnTest").click(function(){
@@ -13,7 +21,32 @@
                 var jsonStr = JSON.stringify(json, ' ', 2);
                 $("#preRes").text(jsonStr);
             },'json');
+
+
+
             return false;
         });;
+
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl(host + "/chatHub")
+        .build();
+
+    connection.on("ReceiveMessage", (user, message) => {
+        const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const encodedMsg = user + " says " + msg;
+        const li = document.createElement("li");
+        li.textContent = encodedMsg;
+        document.getElementById("messagesList").appendChild(li);
+    });
+
+    connection.start().catch(err => console.error(err.toString()));
+
+    document.getElementById("sendButton").addEventListener("click", event => {
+        const user = document.getElementById("userInput").value;
+        const message = document.getElementById("messageInput").value;
+        connection.invoke("SendMessage", user, message).catch(err => console.error(err.toString()));
+        event.preventDefault();
+    });
     </script>
 </body>

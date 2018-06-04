@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PhonemikeServer.WebApi.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,6 +26,8 @@ namespace PhonemikeServer.WebApi
             services.AddMvc();
 
             services.AddRouting();
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,9 +37,15 @@ namespace PhonemikeServer.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             //cors 允许全部
-            app.UseCors(builder => builder.WithOrigins("*").AllowAnyHeader());
+            //app.UseCors(builder => builder.WithOrigins("*").AllowAnyHeader());
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+            
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chathub");
+            });
 
             app.UseMvc(routes =>
             {
