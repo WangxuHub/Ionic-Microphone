@@ -12,7 +12,9 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "genkey": "keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias",
-    "sign": "ionic cordova build android --prod --release && jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.jks platforms\\android\\app\\build\\outputs\\apk\\release\\app-release-unsigned.apk my-alias && del HelloWorld.apk && zipalign -v 4 platforms\\android\\app\\build\\outputs\\apk\\release\\app-release-unsigned.apk HelloWorld.apk"
+    "sign": "ionic cordova build android --prod --release && jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.jks platforms\\android\\app\\build\\outputs\\apk\\release\\app-release-unsigned.apk my-alias && del HelloWorld.apk && zipalign -v 4 platforms\\android\\app\\build\\outputs\\apk\\release\\app-release-unsigned.apk HelloWorld.apk",
+    "debugger": "ionic cordova run android --device",
+    "debugger2": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.jks platforms\\android\\app\\build\\outputs\\apk\\debug\\app-debug.apk my-alias && del HelloWorld.apk && zipalign -v 4 platforms\\android\\app\\build\\outputs\\apk\\debug\\app-debug.apk HelloWorld.apk && adb install HelloWorld.apk"
   },
   "dependencies": {
     "@angular/animations": "5.2.10",
