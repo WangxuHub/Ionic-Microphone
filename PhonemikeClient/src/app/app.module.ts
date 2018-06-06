@@ -11,6 +11,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { Keyboard } from '@ionic-native/keyboard';
   providers: [
     StatusBar,
     SplashScreen,
-    Keyboard,
+    Keyboard, Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
