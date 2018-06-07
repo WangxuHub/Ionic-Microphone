@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PhonemikeServer.WebApi
+namespace PhonemikeServer.Host
 {
     public class Startup
     {
@@ -23,7 +24,7 @@ namespace PhonemikeServer.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddRouting();
 
@@ -38,6 +39,8 @@ namespace PhonemikeServer.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             //cors 允许全部
             //app.UseCors(builder => builder.WithOrigins("*").AllowAnyHeader());
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
@@ -49,10 +52,26 @@ namespace PhonemikeServer.WebApi
 
             app.UseMvc(routes =>
             {
+                //routes.MapRoute(
+                //    name: "Default",
+                //    template: "api/{controller}/{action}/{id?}",
+                //    defaults: new { controller = "Home", action = "Index" }
+                //);
+
                 routes.MapRoute(
-                    name: "Default",
-                    template: "api/{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" }
+                    "webapi",
+                    "api/{controller=Home}/{action=Index}",
+                    null,
+                    null,
+                    new { Namespace = "PhonemikeServer.WebApi.Controllers" }
+                );
+
+                routes.MapRoute(
+                    "Default",
+                    "{controller}/{action}",
+                    new { controller = "Home", action = "Index" },
+                    null,
+                    new { Namespace = "PhonemikeServer.Host.Controllers" }
                 );
             });
         }
