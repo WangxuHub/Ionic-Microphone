@@ -24,9 +24,14 @@ namespace PhonemikeServer.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(opt=> {
+              //  opt.Filters.Add();
+                
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddRouting();
+            services.AddRouting(opt=> {
+                opt.ConstraintMap.Add("NamespaceConstraint", typeof(Core.NamespaceConstraint));
+            });
 
             services.AddSignalR();
         }
@@ -73,7 +78,12 @@ namespace PhonemikeServer.Host
                     null,
                     new { Namespace = "PhonemikeServer.Host.Controllers" }
                 );
+                
+                //routes.MapRoute("default", "{controller}/{action}", null, null,
+                //new { Namespace = "WebApplication.Controllers.HomeController" }));
+
             });
+
         }
     }
 }

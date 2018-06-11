@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>PhoneClientList</h2>
+
+<div id="app">
+    {{ message }}
+
+    <ul>
+        <li v-for="item in clientList">
+            {{item.connectionId}}
+        </li>
+    </ul>
+
+    <table class="table">
+        <tr>
+            <th>connectionId</th>
+            <th>localIpAddress</th>
+            <th>localPort</th>
+            <th>remoteIpAddress</th>
+            <th>remotePort</th>
+        </tr>
+        <tr v-for="item in clientList">
+            <td>{{item.connectionId}}</td>
+            <td>{{item.localIpAddress}}</td>
+            <td>{{item.localPort}}</td>
+            <td>{{item.remoteIpAddress}}</td>
+            <td>{{item.remotePort}}</td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue111111!',
+            clientList:[]
+        }
+    });
+
+
+</script>
+
+
+<button id="btnTest">Test</button>
+<pre id="preRes"></pre>
+
+
+<hr>
+<input id="userInput">
+<input id="messageInput">
+<button id="sendButton">sendButton</button>
+<ul id="messagesList"></ul>
+
+CurManageClientMark:@PhonemikeServer.WebApi.Hubs.ChatHub.CurManageClientMark
+<script>
+    var host = "";
+    $("#btnTest").click(function () {
+        $.get(host + '/api/home/index', function (json) {
+            var jsonStr = JSON.stringify(json, ' ', 2);
+            $("#preRes").text(jsonStr);
+        }, 'json');
+        return false;
+    });;
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl(host + "/chatHub")
+        .build();
+
+    connection.on("ReceiveMessage", (user, message) => {
+        const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const encodedMsg = user + " says " + msg;
+        const li = document.createElement("li");
+        li.textContent = encodedMsg;
+        document.getElementById("messagesList").appendChild(li);
+    });
+
+    connection.start().catch(err => console.error(err.toString()))
+    .then(() => {
+        markManageClient();
+    });
+
+    function markManageClient() { 
+        connection.invoke("MarkManageClient", "@PhonemikeServer.WebApi.Hubs.ChatHub.CurManageClientMark");
+    }
+
+    connection.on('RefreshClientList', clientList => { 
+        app.clientList = clientList;
+    });
+
+    document.getElementById("sendButton").addEventListener("click", event => {
+        const user = document.getElementById("userInput").value;
+        const message = document.getElementById("messageInput").value;
+        connection.invoke("SendMessage", user, message).catch(err => console.error(err.toString()));
+        event.preventDefault();
+    });
+</script>

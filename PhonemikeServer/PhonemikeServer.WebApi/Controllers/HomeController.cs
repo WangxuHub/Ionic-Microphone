@@ -9,6 +9,7 @@ namespace PhonemikeServer.WebApi.Controllers
     {
         // GET api/values
         [HttpGet]
+        [NamespaceConstraint]
         public void Index(string str = "")
         {
             json.msg = str;
