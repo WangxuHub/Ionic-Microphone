@@ -3,15 +3,6 @@ import { NavController } from 'ionic-angular';
 import {Keyboard } from '@ionic-native/keyboard';
 import { Camera,CameraOptions } from '@ionic-native/camera';
 
-
-class CameraMock extends Camera {
-  getPicture(options) {
-    return new Promise((resolve, reject) => {
-      resolve("BASE_64_ENCODED_DATA_GOES_HERE");
-    })
-  }
-}
-
 @Component({
   selector: 'page-contact',
   templateUrl: 'contact.html'
@@ -21,8 +12,6 @@ export class ContactPage {
   constructor(public navCtrl: NavController, public keyboard: Keyboard,private camera: Camera) {
 
   }
-
-  
 
   showKeyboard = () => {
     this.keyboard.show();

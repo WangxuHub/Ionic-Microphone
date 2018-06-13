@@ -7,11 +7,13 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { LocationPage } from '../pages/location/location';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Camera } from '@ionic-native/camera';
+import { Geolocation } from '@ionic-native/geolocation'
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { Camera } from '@ionic-native/camera';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LocationPage
   ],
   imports: [
     BrowserModule,
@@ -31,12 +34,13 @@ import { Camera } from '@ionic-native/camera';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LocationPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    Keyboard, Camera,
+    Keyboard, Camera, Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
