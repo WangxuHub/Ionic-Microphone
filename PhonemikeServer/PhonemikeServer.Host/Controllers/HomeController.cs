@@ -28,6 +28,13 @@ namespace PhonemikeServer.Host.Controllers
             return View();
         }
 
+        [HttpGet]
+        // GET: Home/Create
+        public ActionResult Download()
+        {
+            return File("/Mvc-dev源代码.zip", "application/octet-stream", "Mvc-dev源代码.zip");
+        }
+
         // POST: Home/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
